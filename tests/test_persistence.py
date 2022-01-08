@@ -757,10 +757,10 @@ def test_calc_open_trade_value(
         ('kraken', True, 1, 2.2, 2.5, 0.0025, 75.2626875, margin, 0),
         ('kraken', True, 1, 2.2, 2.5, 0.003, 75.300225, margin, 0),
 
-        ('binance', False, 1, 2.0, 2.5, 0.0025, 75.8125, futures, 1),
-        ('binance', False, 3, 2.0, 2.5, 0.0025, 73.8125, futures, -1),
-        ('binance', True, 3, 2.0, 2.5, 0.0025,  74.1875, futures, 1),
-        ('binance', True, 1, 2.0, 2.5, 0.0025,  76.1875, futures, -1),
+        ('binance', False, 1, 2.0, 2.5, 0.0025, 73.8125, futures, 1),
+        ('binance', False, 3, 2.0, 2.5, 0.0025, 75.8125, futures, -1),
+        ('binance', True, 3, 2.0, 2.5, 0.0025,  76.1875, futures, 1),
+        ('binance', True, 1, 2.0, 2.5, 0.0025,  74.1875, futures, -1),
 
     ])
 @pytest.mark.usefixtures("init_persistence")
@@ -804,7 +804,7 @@ def test_calc_close_trade_price(
         ('binance', True, 1, 2.2, 0.0025, -6.3163784, -0.10553681, margin, 0),
         ('binance', True, 3, 2.2, 0.0025, -6.3163784, -0.31661044, margin, 0),
 
-        # # Kraken
+        # Kraken
         ('kraken', False, 1, 2.1, 0.0025, 2.6925, 0.044763092, spot, 0),
         ('kraken', False, 3, 2.1, 0.0025, 2.6525, 0.132294264, margin, 0),
         ('kraken', True, 1, 2.1, 0.0025, -3.3706575, -0.056318421, margin, 0),
@@ -824,37 +824,37 @@ def test_calc_close_trade_price(
         ('binance', False, 1, 1.9, 0.003, -3.3209999, -0.055211970, spot, 0),
         ('binance', False, 1, 2.2, 0.003, 5.6520000, 0.093965087, spot, 0),
 
-        # # FUTURES, funding_fee=1
-        ('binance', False, 1, 2.1, 0.0025, 3.6925, 0.06138819617622615, futures, 1),
-        ('binance', False, 3, 2.1, 0.0025, 3.6925, 0.18416458852867845, futures, 1),
-        ('binance', True, 1, 2.1, 0.0025, -2.3074999999999974, -0.038554720133667564, futures, 1),
-        ('binance', True, 3, 2.1, 0.0025, -2.3074999999999974, -0.11566416040100269, futures, 1),
+        # FUTURES, funding_fee=1
+        ('binance', False, 1, 2.1, 0.0025, 1.6925, 0.02813799, futures, 1),
+        ('binance', False, 3, 2.1, 0.0025, 1.6925, 0.08441397, futures, 1),
+        ('binance', True, 1, 2.1, 0.0025, -4.3074999, -0.0719716, futures, 1),
+        ('binance', True, 3, 2.1, 0.0025, -4.30749999, -0.21591479, futures, 1),
 
-        ('binance', False, 1, 1.9, 0.0025, -2.2925, -0.0381130507065669, futures, 1),
-        ('binance', False, 3, 1.9, 0.0025, -2.2925, -0.1143391521197007, futures, 1),
-        ('binance', True, 1, 1.9, 0.0025, 3.707500000000003, 0.06194653299916464, futures, 1),
-        ('binance', True, 3, 1.9, 0.0025, 3.707500000000003, 0.18583959899749392, futures, 1),
+        ('binance', False, 1, 1.9, 0.0025, -4.2925, -0.07136326, futures, 1),
+        ('binance', False, 3, 1.9, 0.0025, -4.2925, -0.21408978, futures, 1),
+        ('binance', True, 1, 1.9, 0.0025, 1.70750000, 0.02852966, futures, 1),
+        ('binance', True, 3, 1.9, 0.0025, 1.70750000, 0.08558897, futures, 1),
 
-        ('binance', False, 1, 2.2, 0.0025, 6.685, 0.11113881961762262, futures, 1),
-        ('binance', False, 3, 2.2, 0.0025, 6.685, 0.33341645885286786, futures, 1),
-        ('binance', True, 1, 2.2, 0.0025, -5.315000000000005, -0.08880534670008355, futures, 1),
-        ('binance', True, 3, 2.2, 0.0025, -5.315000000000005, -0.26641604010025066, futures, 1),
+        ('binance', False, 1, 2.2, 0.0025, 4.685, 0.07788861, futures, 1),
+        ('binance', False, 3, 2.2, 0.0025, 4.685, 0.23366584, futures, 1),
+        ('binance', True, 1, 2.2, 0.0025, -7.315000, -0.12222222, futures, 1),
+        ('binance', True, 3, 2.2, 0.0025, -7.315000, -0.36666667, futures, 1),
 
         # FUTURES, funding_fee=-1
-        ('binance', False, 1, 2.1, 0.0025, 1.6925000000000026, 0.028137988362427313, futures, -1),
-        ('binance', False, 3, 2.1, 0.0025, 1.6925000000000026, 0.08441396508728194, futures, -1),
-        ('binance', True, 1, 2.1, 0.0025, -4.307499999999997, -0.07197159565580624, futures, -1),
-        ('binance', True, 3, 2.1, 0.0025, -4.307499999999997, -0.21591478696741873, futures, -1),
+        ('binance', False, 1, 2.1, 0.0025, 3.6925000, 0.0613882, futures, -1),
+        ('binance', False, 3, 2.1, 0.0025, 3.6925000, 0.18416459, futures, -1),
+        ('binance', True, 1, 2.1, 0.0025, -2.3075, -0.03855472, futures, -1),
+        ('binance', True, 3, 2.1, 0.0025, -2.3075, -0.11566416, futures, -1),
 
-        ('binance', False, 1, 1.9, 0.0025, -4.292499999999997, -0.07136325852036574, futures, -1),
-        ('binance', False, 3, 1.9, 0.0025, -4.292499999999997, -0.2140897755610972, futures, -1),
-        ('binance', True, 1, 1.9, 0.0025, 1.7075000000000031, 0.02852965747702596, futures, -1),
-        ('binance', True, 3, 1.9, 0.0025, 1.7075000000000031, 0.08558897243107788, futures, -1),
+        ('binance', False, 1, 1.9, 0.0025, -2.2924999, -0.03811305, futures, -1),
+        ('binance', False, 3, 1.9, 0.0025, -2.2924999, -0.11433915, futures, -1),
+        ('binance', True, 1, 1.9, 0.0025, 3.7075, 0.06194653, futures, -1),
+        ('binance', True, 3, 1.9, 0.0025, 3.7075, 0.1858396, futures, -1),
 
-        ('binance', False, 1, 2.2, 0.0025, 4.684999999999995, 0.07788861180382378, futures, -1),
-        ('binance', False, 3, 2.2, 0.0025, 4.684999999999995, 0.23366583541147135, futures, -1),
-        ('binance', True, 1, 2.2, 0.0025, -7.315000000000005, -0.12222222222222223, futures, -1),
-        ('binance', True, 3, 2.2, 0.0025, -7.315000000000005, -0.3666666666666667, futures, -1),
+        ('binance', False, 1, 2.2, 0.0025, 6.684999, 0.11113882, futures, -1),
+        ('binance', False, 3, 2.2, 0.0025, 6.684999, 0.33341646, futures, -1),
+        ('binance', True, 1, 2.2, 0.0025, -5.315, -0.08880535, futures, -1),
+        ('binance', True, 3, 2.2, 0.0025, -5.315, -0.26641604, futures, -1),
     ])
 @pytest.mark.usefixtures("init_persistence")
 def test_calc_profit(

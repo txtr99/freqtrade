@@ -337,7 +337,7 @@ class Telegram(RPCHandler):
         default_noti = 'on'
 
         msg_type = msg['type']
-        print(nc + "[" + cyan + "!" + nc + "] the Telegram message type being sent is: " + yellow + str(msg['type']) + nc + " ...")  ## [strvinmarvin]
+        # print(nc + "[" + cyan + "!" + nc + "] the Telegram message type being sent is: " + yellow + str(msg['type']) + nc + " ...")  ## [strvinmarvin]
         # print(msg)  ## [strvinmarvin]
         noti = ''
         

@@ -330,11 +330,18 @@ class Telegram(RPCHandler):
     def send_msg(self, msg: Dict[str, Any]) -> None:
         """ Send a message to telegram channel """
 
+        cyan = "\033[0;36;40m"  ## [strvinmarvin]
+        yellow = "\033[1;33;40m"  ## [strvinmarvin]
+        nc = "\033[0;37;40m"  ## [strvinmarvin]
+
         default_noti = 'on'
 
         msg_type = msg['type']
+        print(nc + "[" + cyan + "!" + nc + "] the Telegram message type being sent is: " + yellow + str(msg['type']) + nc + " ...")  ## [strvinmarvin]
+        # print(msg)  ## [strvinmarvin]
         noti = ''
-        if msg_type == RPCMessageType.SELL:
+        
+        if msg_type == RPCMessageType.SELL and msg['close_rate'] is not None:  ## [strvinmarvin] * added the condition to also require a close_rate to filter out "Selling... unfilled limits" telegram flooding for long-term sell orders
             sell_noti = self._config['telegram'] \
                 .get('notification_settings', {}).get(str(msg_type), {})
             # For backward compatibility sell still can be string

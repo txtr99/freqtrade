@@ -341,7 +341,7 @@ class Telegram(RPCHandler):
         # print(msg)  ## [strvinmarvin]
         noti = ''
         
-        if msg_type == RPCMessageType.SELL and msg['close_rate'] is not None:  ## [strvinmarvin] * added the condition to also require a close_rate to filter out "Selling... unfilled limits" telegram flooding for long-term sell orders
+        if msg_type == RPCMessageType.SELL
             sell_noti = self._config['telegram'] \
                 .get('notification_settings', {}).get(str(msg_type), {})
             # For backward compatibility sell still can be string
@@ -353,7 +353,7 @@ class Telegram(RPCHandler):
             noti = self._config['telegram'] \
                 .get('notification_settings', {}).get(str(msg_type), default_noti)
 
-        if noti == 'off':
+        if noti == 'off' or msg['close_rate'] is None:  ## [strvinmarvin] * added the condition to also require a close_rate to filter out "Selling... unfilled limits" telegram flooding for long-term sell orders
             logger.info(f"Notification '{msg_type}' not sent.")
             # Notification disabled
             return

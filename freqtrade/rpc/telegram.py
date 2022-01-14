@@ -338,7 +338,36 @@ class Telegram(RPCHandler):
 
         msg_type = msg['type']
         # print(nc + "[" + cyan + "!" + nc + "] the Telegram message type being sent is: " + yellow + str(msg['type']) + nc + " ...")  ## [strvinmarvin]
-        # print(msg)  ## [strvinmarvin]
+        # print(type(msg))
+        cl_rate = 'unknown'
+        for key, value in msg.items():
+            # print(str(key), ' : ', str(value))
+            # print(type(key), ' : ', type(value))
+            if key == 'close_rate' and type(value) is type(None):
+                cl_rate = 'none'
+        # print("cl_rate: " + cl_rate)
+        # {
+        #     "type":"sell",
+        #     "trade_id":1648,
+        #     "exchange":"Binance",
+        #     "pair":"COMP/BUSD",
+        #     "gain":"profit",
+        #     "limit":198.49920000000003,
+        #     "order_type":"limit",
+        #     "amount":0.1,
+        #     "open_rate":198.40000000000003,
+        #     "close_rate":"None",
+        #     "current_rate":195.5,
+        #     "profit_amount":0.00992,
+        #     "profit_ratio":0.0005,
+        #     "buy_tag":"BUY: rsi ema5 ema13 close_above_50 close_above_200 sar_reversed",
+        #     "sell_reason":"sell now on other side of spread",
+        #     "open_date":datetime.datetime(2022, etc)
+        #     "close_date":datetime.datetime(2022, etc)
+        #     "stake_currency":"BUSD",
+        #     "fiat_currency":"USD",
+        #     "base_currency":"COMP"
+        #     }
         noti = ''
         
         if msg_type == RPCMessageType.SELL:
@@ -353,7 +382,7 @@ class Telegram(RPCHandler):
             noti = self._config['telegram'] \
                 .get('notification_settings', {}).get(str(msg_type), default_noti)
 
-        if noti == 'off' or msg['close_rate'] is None:  ## [strvinmarvin] * added the condition to also require a close_rate to filter out "Selling... unfilled limits" telegram flooding for long-term sell orders
+        if noti == 'off' or cl_rate == 'none': # or msg['close_rate'] is None:  ## [strvinmarvin] * added the condition to also require a close_rate to filter out "Selling... unfilled limits" telegram flooding for long-term sell orders
             logger.info(f"Notification '{msg_type}' not sent.")
             # Notification disabled
             return

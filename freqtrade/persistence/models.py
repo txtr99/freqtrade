@@ -614,6 +614,22 @@ class LocalTrade():
         else:
             return None
 
+    # [strvinmarvin] adding new function to get last closed filled order (for DCA logic)
+    def select_last_filled_order(self, order_side: str, is_open: Optional[bool]) -> Optional[Order]:
+        """
+        Finds latest order for this orderside and status, pulling only filled orders from the database.
+        :param order_side: Side of the order (either 'buy' or 'sell')
+        :param is_open: Only search for open orders?
+        :return: latest Order object if it exists, else None
+        """
+        orders = [o for o in self.orders if o.side == order_side]
+        if is_open is not None:
+            orders = [o for o in orders if o.ft_is_open == is_open and o.status == 'closed']
+        if len(orders) > 0:
+            return orders[-1]
+        else:
+            return None
+
     def nr_of_successful_buys(self) -> int:
         """
         Helper function to count the number of buy orders that have been filled.

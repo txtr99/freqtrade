@@ -630,6 +630,18 @@ class LocalTrade():
         else:
             return None
 
+    # [strvinmarvin] adding new function copy/pasted from reinuvader
+    def select_filled_orders(self, order_side: str) -> List['Order']:
+        """
+        Finds filled orders for this orderside.
+        :param order_side: Side of the order (either 'buy' or 'sell')
+        :return: array of Order objects
+        """
+        return [o for o in self.orders if o.side == order_side and
+                  o.ft_is_open is False and
+                  (o.filled or 0) > 0 and
+                  o.status in NON_OPEN_EXCHANGE_STATES]
+
     def nr_of_successful_buys(self) -> int:
         """
         Helper function to count the number of buy orders that have been filled.
